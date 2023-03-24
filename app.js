@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import fetch from 'node-fetch'
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 var sequelize = new Sequelize('eduard72_consultagoogle', 'eduard72_felipe', 'oQnD~rzZWG&9', {
     host: 'sh-pro20.hostgator.com.br',
