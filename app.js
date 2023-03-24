@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import fetch from 'node-fetch'
 
 var sequelize = new Sequelize('eduard72_consultagoogle', 'eduard72_felipe', 'oQnD~rzZWG&9', {
     host: 'sh-pro20.hostgator.com.br',
@@ -48,6 +49,7 @@ async function app() {
         await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
             .then(function (response) {
              delay(200)
+             console.log(response)
             })
             .catch(err => console.log(err))
 
