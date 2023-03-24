@@ -23,7 +23,7 @@ async function app() {
     await sequelize.query('DELETE FROM emails WHERE email like "%1%" || email like "%2%" || email like "%3%" ||email like "%4%" || email like "%5%" || email like "%6%" || email like "%7%" || email like "%8%" || email like "%9%"');
     await sequelize.query('DELETE FROM emails WHERE email like "%.jpg%" || email like "%.png%" || email like "%.pdf%" || email like "%.gif%" || email like "%.xlsx%"');
 
-    var getEmail = await sequelize.query("SELECT * FROM `emails`");
+    var getEmail = await sequelize.query("SELECT * FROM `emails` WHERE status = 1");
     getEmail = getEmail[0]
 
     console.log(getEmail[0])
