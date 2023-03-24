@@ -49,7 +49,7 @@ async function app() {
         }
 
         await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
-            .then(await sleep(1500))//
+            .then(await new Promise(resolve => setTimeout(resolve, 1000)))//
             .then(console.log("UP"))
             .catch(err => console.log(err))
 
