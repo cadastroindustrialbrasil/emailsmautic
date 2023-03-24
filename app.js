@@ -21,6 +21,36 @@ async function app() {
 
     var getEmail = await sequelize.query("SELECT * FROM `emails`");
 
-    console.log(getEmail)
+    getEmail.forEach(async function(email){
+
+        var name = email.email
+        name = name.split("@")
+        name = name[0]
+
+        var arrayFields = {
+            "firstname": name,
+            "email": email.email,
+            "state":email.estado,
+            "tags":[email.categoria,email.estado,"Google"]
+            }
+
+        var optionsMautic = {
+            method: 'post',
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic Y2FkYXN0cm9icjpXZWJtYXN0ZXIxMjMxKg==',
+                'Cookie': 'mautic_device_id=1ptosd2ouwqe16617j5psrrn0'
+            },
+            body: JSON.stringify(arrayFields)
+        }
+
+        await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
+            .then(function (response) {
+             delay(200)
+            })
+            .catch(err => console.log(err))
+
+        })
 }
 app()
