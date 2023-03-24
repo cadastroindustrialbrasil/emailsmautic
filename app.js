@@ -21,6 +21,7 @@ async function app() {
 
     await sequelize.query("DELETE from emails where id not in ( SELECT * FROM(select min(id) from emails group by email) AS temp_tab)");
     await sequelize.query('DELETE FROM emails WHERE email like "%1%" || email like "%2%" || email like "%3%" ||email like "%4%" || email like "%5%" || email like "%6%" || email like "%7%" || email like "%8%" || email like "%9%"');
+    await sequelize.query('DELETE FROM emails WHERE email like "%.jpg%" || email like "%.png%" || email like "%.pdf%" || email like "%.gif%" || email like "%.xlsx%"');
 
     var getEmail = await sequelize.query("SELECT * FROM `emails`");
     getEmail = getEmail[0]
@@ -55,7 +56,7 @@ async function app() {
         }
 
         await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
-            .then(await delay(3000))//
+            .then(await delay(1000))//
             .then(console.log("UP"))
             .catch(err => console.log(err))
 
