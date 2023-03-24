@@ -25,13 +25,15 @@ async function app() {
     var getEmail = await sequelize.query("SELECT * FROM `emails`");
     getEmail = getEmail[0]
 
+    console.log(getEmail[0])
+
     var loop = getEmail.length
     var x = 0
 
-    while(loop > 0){
+   while(loop > 0){
 
         var name = getEmail[x].email
-        name = getEmail[x].split("@")
+        name = name.split("@")
         name = name[0]
 
         var arrayFields = {
