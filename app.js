@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import fetch from 'node-fetch'
+import sleep from "sleep-promise";
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 var sequelize = new Sequelize('eduard72_consultagoogle', 'eduard72_felipe', 'oQnD~rzZWG&9', {
@@ -48,7 +49,7 @@ async function app() {
         }
 
         await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
-            .then(delay(1500))
+            .then(sleep(1500))
             .then(console.log("UP"))
             .catch(err => console.log(err))
 
