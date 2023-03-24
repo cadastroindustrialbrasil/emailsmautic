@@ -48,10 +48,8 @@ async function app() {
         }
 
         await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
-            .then(async function (response) {
-            await delay(1000)
-             console.log("up")
-            })
+            .then(await delay(1500))
+            .then(console.log("UP"))
             .catch(err => console.log(err))
 
         })
