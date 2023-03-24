@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import fetch from 'node-fetch'
-import sleep from "sleep-promise";
+
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 var sequelize = new Sequelize('eduard72_consultagoogle', 'eduard72_felipe', 'oQnD~rzZWG&9', {
@@ -23,18 +23,22 @@ async function app() {
     await sequelize.query('DELETE FROM emails WHERE email like "%1%" || email like "%2%" || email like "%3%" ||email like "%4%" || email like "%5%" || email like "%6%" || email like "%7%" || email like "%8%" || email like "%9%"');
 
     var getEmail = await sequelize.query("SELECT * FROM `emails`");
+    getEmail = getEmail[0]
 
-    getEmail[0].forEach(async function(email){
+    var loop = getEmail.length
+    var x = 0
 
-        var name = email.email
-        name = name.split("@")
+    while(loop > 0){
+
+        var name = getEmail[x].email
+        name = getEmail[x].split("@")
         name = name[0]
 
         var arrayFields = {
             "firstname": name,
-            "email": email.email,
-            "state":email.estado,
-            "tags":[email.categoria,email.estado,"Google"]
+            "email": getEmail[x].email,
+            "state":getEmail[x].estado,
+            "tags":[getEmail[x].categoria,getEmail[x].estado,"Google"]
             }
 
         var optionsMautic = {
@@ -49,10 +53,13 @@ async function app() {
         }
 
         await fetch('https://editoraeuro.com.br/api/contacts/new', optionsMautic)
-            .then(await new Promise(resolve => setTimeout(resolve, 1000)))//
+            .then(await delay(1000))//
             .then(console.log("UP"))
             .catch(err => console.log(err))
 
-        })
+            loop --
+            x++
+
+        }
 }
 app()
