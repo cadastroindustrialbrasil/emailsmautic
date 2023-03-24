@@ -21,7 +21,7 @@ async function app() {
 
     var getEmail = await sequelize.query("SELECT * FROM `emails`");
 
-    getEmail.forEach(async function(email){
+    getEmail[0].forEach(async function(email){
 
         var name = email.email
         name = name.split("@")
